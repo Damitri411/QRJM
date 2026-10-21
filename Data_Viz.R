@@ -11,22 +11,20 @@ library(grid)
 library(RColorBrewer)
 
 
+#File Path
 fp="C:/Users/Damitri/Desktop/Experiment JM/EXP_JAGS"
-path_out=paste(fp,"/Sim_QRJM",sep="")
-setwd(path_out)
 
+#Input path
+path=paste(fp,"/QRJM/DATA",sep="")
+path_out=paste(fp,"/JAGS_Output/QRJM(WBC-ANC, ANC, PLT)",sep="") # QRJM(WBC, ANC, PLT) QRJM(WBC-ANC, ANC, PLT)
+data_org=readRDS(paste(path,"/Transformed_DATA.rds",sep=""))
 
 
 
 #Multinornal QQ plot
-
-data_org=readRDS(paste(path_out,"/Data/The_Data",".rds",sep=""))
 x<-data_org[,c('ANC','PLT')]
 
 mqqnorm(x, main = "Multi-normal Q-Q Plot (Y_a,Y_b)")
-
-
-data_org=readRDS(paste(path_out,"/Data/The_Data",".rds",sep=""))
 d_sub=data_org%>%
   group_by(Child.Id)%>%
   summarise(Mean_ANC=mean(ANC),Mean_PLT=mean(PLT),
